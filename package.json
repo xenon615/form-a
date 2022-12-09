@@ -1,0 +1,21 @@
+{
+  "name": "form-a",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "mitt": "^3.0.0",
+    "normalize.scss": "^0.1.0",
+    "vue": "^3.2.41"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.2.0",
+    "pug": "^3.0.2",
+    "sass": "^1.46.0",
+    "vite": "^3.2.3",
+    "vue-json-pretty": "^2.0.6"
+  }
+}
