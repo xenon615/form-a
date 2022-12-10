@@ -7,7 +7,7 @@ was originally created as a tool to facilitate the creation of WordPress admin p
 
 ## Usage: 
 
-### HTML please refer to [index.html](./index.html)
+### HTML ( please refer to [index.html](./index.html) )
 (class "form-a-placeholder" is required).  You can place multiple forms
 
 ```
@@ -17,6 +17,6 @@ was originally created as a tool to facilitate the creation of WordPress admin p
     </form>
 ```
 
-### Form Definition ([remote.js](./src/remote.js))
+### Form Definition ( [remote.js](./src/remote.js) )
 #### Option 1
 
