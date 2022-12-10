@@ -80,7 +80,6 @@ forms: {
             },
             def: {
                 title: 'Plain Form',
-                // formSelector: 'form#post,form#edittag',
                 remoteSubmit: true,   // i mean "ajax submit" :)
                 buttons: [    // one button implemented at the moment
                     {

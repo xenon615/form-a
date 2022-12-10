@@ -10,7 +10,6 @@ const  formA = window.formA ??  {   //dummy form for test
         'local-form-1': {
             def: {
                 title: 'Plain Form',
-                // formSelector: 'form#post,form#edittag',
                 remoteSubmit: true,
                 buttons: [
                     {
