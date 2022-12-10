@@ -108,5 +108,24 @@ forms: {
     }    
 ```
 
+### Submit options
+#### Option1 
+```
+         ....
+            def: {
+                remoteSubmit: true,   // ajax POST submit to remote URL
+        ....
+
+```    
+#### Option 2
+```
+         ....
+            def: {
+                remoteSubmit: false,   // POST with page reload (not tested properly at the moment )
+        ....
+
+```    
+
+
 
 
