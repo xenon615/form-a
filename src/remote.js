@@ -138,7 +138,6 @@ export function loadForm(formSlug) {
 //     })
 // }
 
-
 export function remoteRequest(action, formSlug , method, data) {
     let rp = formA.remote
     let  url = rp.url;
