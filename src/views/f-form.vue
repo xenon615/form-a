@@ -9,14 +9,14 @@ div.form
             | {{b.text}}
         .progress(v-if='submitting')
             img(:src='progressUrl')
-//- div
+div
     vue-json-pretty(:data="form_data")
 
 </template>
 
 <script setup>
-// import VueJsonPretty from 'vue-json-pretty'
-// import 'vue-json-pretty/lib/styles.css'
+import VueJsonPretty from 'vue-json-pretty'
+import 'vue-json-pretty/lib/styles.css'
 
 import {inject, onMounted, ref} from 'vue'
 import {remoteRequest, loadForm} from '../remote.js'

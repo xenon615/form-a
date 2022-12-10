@@ -1,26 +1,92 @@
-
-//const  formA = window.formA
-
-const  formA = window.formA ??  {   //test data
+const  formA = window.formA ??  {   //dummy form for test
     remote: {
         nonce: "25e94a50ff",
-        url: "https://pie-v1.local/wp-json/form-a/all"
+        url: "https://localhost/wp-json/form-a/all"
     },
     forms : {
-        // 'pie-gifts-import': {
-        //     remoteLoad: true,
-        // },
-        "payment-a-settings": {
-            remoteLoad: false,
-        },
-        'pie-gifts-import': {
+        'local-form-1': {
             def: {
-                title: 'The Form2',
+                title: 'Plain Form',
                 // formSelector: 'form#post,form#edittag',
-                'remoteSubmit': true,
+                remoteSubmit: true,
                 buttons: [
                     {
-                        text: 'Update Settings2',
+                        text: 'Submit',
+                        classes: ['button', 'button-primary','button-large'],
+                        type: 'submit'
+                    }
+                ],    
+                fields: [
+                    {
+                        type: 'text',  //  email |  password |  number | textarea
+                        name: 'text-field',
+                        label: 'Text Field',   // short form  default position  - "before"
+                        default: 'Text Value',
+                        classes: ['col-2'],  //  grid of 18 columns
+                        breakAfter: false , //  "true" for new line 
+                        validators: {
+                            required: true   // at the moment only "required" implemented
+                        }
+                    },
+                    {
+                        type: 'true-false', 
+                        name: 'true_or_false',
+                        label: {text:'R U Ok?', position: 'before'},  // full form 
+                        classes: ['col-1'],
+                    },
+                    {
+                        type: 'checkbox', 
+                        name: 'desire',
+                        label: 'What you want ?',
+                        classes: ['col-4', 'horizontal'],  // "vertical" is default
+                        options : [
+                            {label: 'Sleep', value: 'sleep'},
+                            {label: 'Drink', value: 'drink'},
+                            {label: 'Eat', value: 'eat'},
+                        ], 
+                        default: ['eat']
+                    },
+                    {
+                        type: 'radio', 
+                        name: 'choice',
+                        label: 'What you want first?',
+                        classes: ['col-3'],  
+                        options : [
+                            {label: 'Sleep', value: 'sleep'},
+                            {label: 'Drink', value: 'drink'},
+                            {label: 'Eat', value: 'eat'},
+                        ], 
+                        default: 'eat'
+                    },
+                    {
+                        type: 'select', 
+                        name: 'select',
+                        label: 'What you want first?',
+                        classes: ['col-3'],  
+                        options : [
+                            {label: 'Sleep', value: 'sleep'},
+                            {label: 'Drink', value: 'drink'},
+                            {label: 'Eat', value: 'eat'},
+                        ], 
+                        default: 'drink'
+                    },
+                    {
+                        name: 'file',
+                        type: 'file',
+                        label: 'File'
+                    }
+                ]
+            },
+            data:  {}
+        },
+        'local-form-2' : {
+            data: {},
+            def: {
+                title: 'Non Plain Form',
+                remoteSubmit: true,
+                buttons: [
+                    {
+                        text: 'Submit',
                         classes: ['button', 'button-primary','button-large'],
                         type: 'submit'
                     }
@@ -28,63 +94,106 @@ const  formA = window.formA ??  {   //test data
                 fields: [
                     {
                         type: 'group',
-                        name: 'g1',
-                        label: 'G1',
+                        label : 'Group1',
+                        name: 'user',
+                        classes: ['col-4'],
                         fields: [
                             {
-                                name: 'g11',
                                 type: 'text',
-                                label: 'g11'
+                                label: 'First Name',
+                                name: 'fname'
                             },
                             {
-                                name: 'g12',
                                 type: 'text',
-                                label: 'g12'
-                            },
-        
+                                label: 'Last Name',
+                                name: 'lname'
+                            }
                         ]
-
-                         
                     },
                     {
-                        type: 'true-false',
-                        name: 'tf',
-                        label: 'TF'
-                    },
-
-                    {
-                        name: 'one2',
-                        type: 'checkbox',
-                        label: 'One',
-                        classes: ['col-9', 'horizontal'],
-                        options : [
-                            {label: 'one', value: 1},
-                            {label: 'two', value: 2},
-                        ], 
-                        validators: {
-                            required: true
-                        }
-                    },
-                    {
-                        name: '1111',
-                        type: 'text',
-                        label: 'ssssss',
-                        validators: {
-                            required: true
-                        }
-
-                    },
-
-                    {
-                        name: 'f1',
-                        type: 'file',
-                        label: 'file'
+                        type: 'repeater',
+                        label : 'Rep 1',
+                        name: 'users',
+                        classes: ['col-5'],
+                        fields: [
+                            {
+                                type: 'text',
+                                label: 'First Name',
+                                name: 'fname'
+                            },
+                            {
+                                type: 'text',
+                                label: 'Last Name',
+                                name: 'lname'
+                            }
+                        ]
                     }
 
                 ]
-            },
-            data:  {}
+            }
         },
+        'local-form-3' : {
+            data: {},
+            def: {
+                title: 'Form with logic',
+                remoteSubmit: true,
+                buttons: [
+                    {
+                        text: 'Submit',
+                        classes: ['button', 'button-primary','button-large'],
+                        type: 'submit'
+                    }
+                ],    
+                fields: [
+                    {
+                        type: 'select', 
+                        name: 'select',
+                        label: 'What you want first?',
+                        classes: ['col-3'],  
+                        options : [
+                            {label: 'Sleep', value: 'sleep'},
+                            {label: 'Drink', value: 'drink'},
+                            {label: 'Eat', value: 'eat'},
+                        ], 
+                        default: 'sleep'
+                    },
+                    {
+                        type: 'group',
+                        label: 'Group',
+                        name: 'g1',
+                        fields: [
+                            {
+                                type: 'text',
+                                label: 'Magic word',
+                                name: 'mword'
+                            },
+                        ]
+                    },
+                    {
+                        type: 'number', 
+                        name: 'count',
+                        default : 12,
+                        label: 'How much ?',
+                        classes: ['col-3'],  
+                        cLogic: [
+                            {
+                                path: 'select',
+                                value: 'drink',
+                                compare: '==',
+                                relation: 'and'
+                            },
+                            {
+                                path: 'g1--mword',
+                                value: 'please',
+                                compare: '==',
+                                relation: 'or'
+                            },
+
+                        ]
+                    },
+                ]
+            }    
+        }    
     }
 }
 
@@ -98,45 +207,6 @@ export function loadForm(formSlug) {
     }
 }
 
-// export function remoteRequest(action, formSlug , method, data) {
-//     let rp = formA.remote
-//     let  url = rp.url + '/?action='+ action  + '&_wpnonce=' + rp.nonce + '&formSlug=' + formSlug;
-    
-
-//     let params = {
-//         method : method,
-//         mode: 'no-cors'   // comment for "yarn dev"
-//         // mode:'cors'
-//     };
-    
-//     if (method == 'GET') {
-//         if (typeof data == 'object') {
-//             url += '&' + new URLSearchParams(data)
-//         }
-//     } else {
-//         let body;
-//         let headers;
-//             body =  JSON.stringify(data);
-//             headers = {
-//                 'Content-Type': 'application/json'
-//             };
-//         params = {...params, ...{
-//             headers: headers,
-//             body: body 
-//         }};
-//         // console.log(params)
-//     }
-
-//     return  fetch(url, params ).then(response => {
-//         // console.log(response)
-//         if (response.ok) {
-//             return response.json()
-//         } else {
-//             return {result: false, payload:{}}
-//         }
-        
-//     })
-// }
 
 
 export function remoteRequest(action, formSlug , method, data) {
@@ -194,16 +264,13 @@ export function remoteRequest(action, formSlug , method, data) {
             headers: headers,
             body: fd 
         }};
-        // console.log(params)
     }
 
     return  fetch(url, params ).then(response => {
-        // console.log(response)
         if (response.ok) {
             return response.json()
         } else {
             return {result: false, payload:{}}
         }
-        
     })
 }
