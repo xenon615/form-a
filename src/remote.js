@@ -4,6 +4,9 @@ const  formA = window.formA ??  {   //dummy form for test
         url: "https://localhost/wp-json/form-a/all"
     },
     forms : {
+        'remote-form': {
+            remoteLoad: true
+        },
         'local-form-1': {
             def: {
                 title: 'Plain Form',

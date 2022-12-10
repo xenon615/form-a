@@ -17,6 +17,17 @@ was originally created as a tool to facilitate the creation of WordPress admin p
     </form>
 ```
 
-### Form Definition ( [remote.js](./src/remote.js) )
-#### Option 1
+### Form loading ( please refer to [remote.js](./src/remote.js) )
+
+window.formA must exists and have 2 props: 
+"remote"  that contain endpoint url and , in my case, wordpress nonce
+and 
+"forms"
+
+#### Option 1  (refer to 'local-form-...'  in remote.js)
+In this case form definition placed in window.formA.forms
+#### Option 2  (refer to 'remote-form'  in remote.js)
+In this case form definition loaded from backend
+
+
 
