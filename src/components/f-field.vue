@@ -1,8 +1,9 @@
 <template lang="pug">
-div(:class='classes()',  v-if='isVisible')
-    label(v-if='field.label.text && field.label.position == "before"', :for='parentId + "--" + props.field.name') {{field.label.text}}
-    component(:is='ftype()'  :field='field', :data='sdata()', :parent-id='parentId' , :required='field.validators && field.validators.required')
-    label(v-if='field.label.text && field.label.position == "after"', :for='parentId + "--" + props.field.name') {{field.label.text}}
+div(:class='classes()', v-if='field.type == "html"', v-html='sdata()')
+div(:class='classes()',  v-if='isVisible && (field.type != "html")')
+    label(v-if='field.label && field.label.text && field.label.position == "before"', :for='parentId + "--" + props.field.name') {{field.label.text}}
+    component(:is='ftype()'  :field='field', :data='sdata()', :parent-id='parentId' , :required='field.validators && field.validators.required', :disabled='field.disabled')
+    label(v-if='field.label && field.label.text && field.label.position == "after"', :for='parentId + "--" + props.field.name') {{field.label.text}}
 .line-break(v-if='field.breakAfter')    
 </template>
 <script setup>

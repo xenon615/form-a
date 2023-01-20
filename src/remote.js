@@ -20,6 +20,14 @@ const  formA = window.formA ??  {   //dummy form for test
                 ],    
                 fields: [
                     {
+                        type: 'html',  
+                        name: 'html-field',
+                        default: '<h1>html-val</h1>',
+                        classes: ['col-2'],
+                        breakAfter:true
+                    },
+
+                    {
                         type: 'text',  //  email |  password |  number | textarea
                         name: 'text-field',
                         label: 'Text Field',   // short form  default position  - "before"
@@ -28,7 +36,8 @@ const  formA = window.formA ??  {   //dummy form for test
                         breakAfter: false , //  "true" for new line 
                         validators: {
                             required: true   // at the moment only "required" implemented
-                        }
+                        },
+                        disabled: true
                     },
                     {
                         type: 'true-false', 
@@ -167,8 +176,15 @@ const  formA = window.formA ??  {   //dummy form for test
                             {
                                 type: 'text',
                                 label: 'Magic word',
-                                name: 'mword'
+                                name: 'mword',
+                                breakAfter: true
                             },
+                            {
+                                type: 'html',
+                                default: '(Choose <strong>Drink</strong> , and type <strong>Please</strong> )',
+                                name: 'info'
+                            },
+
                         ]
                     },
                     {
