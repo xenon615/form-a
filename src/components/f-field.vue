@@ -106,8 +106,8 @@ norm();
     padding: 10px;
     & label {
         display: block;
-        font-weight: bolder;
-        margin-bottom: 2px;
+        font-weight: 500;
+        margin-bottom: 1.5px;
     }
     &.f-true-false label {
         display: inline-block;

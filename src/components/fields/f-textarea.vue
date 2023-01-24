@@ -1,5 +1,5 @@
 <template lang="pug">
-textarea(:id = 'fid',  v-model = 'fd',  cols="30", rows="10", class='form-control')
+textarea(:id = 'fid',  v-model = 'fd',  , :rows='field.rows || 5', class='form-control')
 </template>
 <script setup>
 import { useField} from "./shared"
