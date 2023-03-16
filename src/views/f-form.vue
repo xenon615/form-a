@@ -45,6 +45,23 @@ onMounted(() => {
     })
 })
 
+const prepareHiddenInput = (formElement) => {
+    let dataName = form_def.value.dataName ?? 'FormAData';        
+        let  input = document.querySelector('#' + dataName);
+        if (!input) {
+            input = Object.assign(document.createElement('input'), {
+                name: dataName,
+                id: dataName ,
+                type: 'hidden'
+            })
+            formElement.appendChild(input);
+        }
+        input.setAttribute('value', JSON.stringify(form_data.value));
+        return true;
+
+}
+
+
 const handleSubmit = () => {
     const fd = form_def.value;
     let formElement = document.querySelector('#' + props.formSlug).closest('form');
@@ -62,34 +79,34 @@ const handleSubmit = () => {
                     window.location.href = data.redirectURL;
                 }
                 if (window.formA.afterSubmit) {
-                    window.formA.afterSubmit(formElement,data);
+                    window.formA.afterSubmit(formElement, data);
                 }
             });
             return false;
         }
-
-        let dataName = form_def.value.dataName ?? 'FormAData';        
-        let  input = document.querySelector('#' + dataName);
-        if (!input) {
-            input = Object.assign(document.createElement('input'), {
-                name: dataName,
-                id: dataName ,
-                type: 'hidden'
-            })
-            this.appendChild(input);
-        }
-        input.setAttribute('value', JSON.stringify(form_data.value));
-        return true;
-        /*
-        if (editor.$wpData.action == 'add') {
-            var publish = document.createElement("input");
-            publish.name = 'publish';
-            publish.type = 'hidden';
-            publish.value = 'Publish';
-            publish.id = 'publish';
-            this.appendChild(publish);
-        }
-        */        
+        prepareHiddenInput(formElement);
+        // let dataName = form_def.value.dataName ?? 'FormAData';        
+        // let  input = document.querySelector('#' + dataName);
+        // if (!input) {
+        //     input = Object.assign(document.createElement('input'), {
+        //         name: dataName,
+        //         id: dataName ,
+        //         type: 'hidden'
+        //     })
+        //     this.appendChild(input);
+        // }
+        // input.setAttribute('value', JSON.stringify(form_data.value));
+        // return true;
+        // /*
+        // if (editor.$wpData.action == 'add') {
+        //     var publish = document.createElement("input");
+        //     publish.name = 'publish';
+        //     publish.type = 'hidden';
+        //     publish.value = 'Publish';
+        //     publish.id = 'publish';
+        //     this.appendChild(publish);
+        // }
+        // */        
     });
 }
 
