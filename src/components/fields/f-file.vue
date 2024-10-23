@@ -1,5 +1,5 @@
 <template lang="pug">
-input(type='file', :id = 'fid',  @change='fileChanged', class='form-control')
+input(type='file', :id = 'fid',  @change='fileChanged', class='form-control', @click='(e) => e.target.value = null' )
 </template>
 <script setup>
 import { useField} from "./shared"

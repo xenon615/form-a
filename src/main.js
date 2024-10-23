@@ -6,6 +6,7 @@ import mitt from 'mitt'
 const components = import.meta.globEager('./components/**/*.vue')
 let apps = [];
 const slots = document.querySelectorAll('.form-a-placeholder')
+
 if (slots.length > 0 ) {
     slots.forEach((s, idx) => {
         apps.push(createApp(App, {formSlug: s.id}))
@@ -17,5 +18,4 @@ if (slots.length > 0 ) {
         apps[idx].mount('#' + s.id);
     })
 }
-
 

@@ -4,6 +4,7 @@ div(:class='classes()',  v-if='isVisible && (field.type != "html")')
     label(v-if='field.label && field.label.text && field.label.position == "before"', :for='parentId + "--" + props.field.name') {{field.label.text}}
     component(:is='ftype()'  :field='field', :data='sdata()', :parent-id='parentId' , :required='field.validators && field.validators.required', :disabled='field.disabled')
     label(v-if='field.label && field.label.text && field.label.position == "after"', :for='parentId + "--" + props.field.name') {{field.label.text}}
+    p.help(v-if='field.help') {{ field.help }}
 .line-break(v-if='field.breakAfter')    
 </template>
 <script setup>
@@ -16,22 +17,33 @@ const props = defineProps({
 
 
 const classes = () => {
-    return (props.field.classes ? `${props.field.classes.join(' ')} ` : '')  + 'form-group col f-' + props.field.type
+    return (props.field.classes ? `${props.field.classes.join(' ')} ` : '')  + 'form-group col f-' + props.field.type + (props.field.type == 'hidden' ? ' hidden' : '')
 }
 
 const sdata = () => {
     let v     
     if (typeof props.data == 'undefined') {
+
+        if (props.field.options && !props.field.default) {
+            let tmp = []
+            props.field.options.forEach(e => {
+                if (e.checked) {
+                    tmp.push(e.value)
+                    delete e.checked
+                }
+            })
+            if (tmp.length > 0 ) {
+                props.field.default = (props.field.type == 'select' || props.field.type == 'radio') ? tmp[0] : tmp
+            }
+        }
+
         if (props.field.default) {
             v = props.field.default
-        } else if (props.field.type == 'repeater') {
+        } else if (props.field.type == 'repeater' || props.field.type == 'table') {
             v =  [];
         } else if (props.field.type == 'group') {
             v = {}
         } 
-        // else {
-        //     v =  null;
-        // }
         emitter.emit('value-changed', {
             id: props.parentId + '--' + props.field.name,
             value: v
@@ -43,7 +55,7 @@ const sdata = () => {
 }
 const isVisible = ref(true)
 const ftype = () => {
-    const textVariants = ['text', 'email', 'password', 'number', 'date']
+    const textVariants = ['text', 'email', 'password', 'number', 'hidden']
     return 'f-' + (textVariants.includes(props.field.type) ? 'text' : props.field.type)
 }
 
@@ -106,7 +118,8 @@ norm();
     padding: 10px;
     & label {
         display: block;
-        font-weight: 500;
+        color: #3c434a;
+        font-weight: 600;
         margin-bottom: 1.5px;
     }
     &.f-true-false label {
@@ -131,7 +144,24 @@ norm();
         font-size: 1.3em;
         padding: 5px
     }
-}
 
+    &.inline {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        & label {
+            text-align: center;
+            flex: 1 0 25%;
+            margin-bottom: 0;
+        }
+    }
+    & p.help {
+        font-style: italic;
+        color: #777;
+    }
+}
+.hidden {
+    display: none !important;
+}
 
 </style>

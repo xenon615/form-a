@@ -63,5 +63,11 @@ onMounted(() => {
         },
         quicktags   : true,
     })
+
+    let editor = window.tinymce.get(fid)
+    editor.on('Change', function(data) {
+        fd.value = editor.getContent()
+    });
+
 })
 </script>

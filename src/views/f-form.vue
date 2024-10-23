@@ -1,11 +1,11 @@
 <template lang="pug">
-div.form
-    h1 {{form_def.title}}
+div.form(:class = 'form_def.classes')
+    .form-title {{form_def.title}}
     .fields
         f-field(v-for='field in form_def.fields', :field='field', parentId = 'f', :data='form_data[field.name]')
-    .message {{message}}    
+    .message(:class='message_class', v-html='message')     
     .buttons(v-if='form_def.buttons')
-        button(v-for='b in form_def.buttons', :type='b.type' :class='b.classes', :disabled ='submitting' )
+        button(v-for='b in form_def.buttons', :type='b.type' :class='b.classes', :disabled ='submitting' , @click = 'buttonClick(b.action)')
             | {{b.text}}
         .progress(v-if='submitting')
             img(:src='progressUrl')
@@ -27,10 +27,17 @@ const props = defineProps({
 });
 
 const message = ref('')
+const message_class = ref('')
 const submitting = ref(false)
 const form_def = ref({})
 const form_data = ref({})
 // const isReady = ref(false)
+
+const buttonClick = (action) => {
+    if (action) {
+        form_data.value.__action = action
+    }
+}
 
 onMounted(() => {
     loadForm(props.formSlug).then((r) => {
@@ -39,7 +46,6 @@ onMounted(() => {
         if (typeof form_def.value == 'undefined') {
             form_def.value = {fields:[]}
         }
-        // isReady.value = true
         handleSubmit();
         initLogic(form_def.value.fields)
     })
@@ -72,9 +78,16 @@ const handleSubmit = () => {
         if (fd.remoteSubmit) {
             e.preventDefault();
             submitting.value = true;
+            if (window.formA.beforeSubmit) {
+                window.formA.beforeSubmit(props.formSlug, form_data.value);
+            }
+
             remoteRequest('submit', props.formSlug, 'POST', form_data.value).then(data => {
                 submitting.value = false;
                 message.value = data.message ?? ''
+                if (data.message) {
+                    message_class.value = data.success ? 'info' : 'error'
+                }
                 if (data.redirectURL) {
                     window.location.href = data.redirectURL;
                 }
@@ -182,18 +195,31 @@ const getByPath = sPath => {
 
 // ---------
 
-
-
 </script>
 
 <style  lang="scss">
 @import  '../assets/scss/grid.scss'; 
 .form {
+    border: 1px solid #d3cbd7;
+    border-radius: 5px;
+    padding: 10px;
+    .form-title {
+        font-size: 1.5em;
+        margin-bottom: 0.5em;
+    }
     & div {
        box-sizing: border-box; 
     }
-    & .fields {
+    & .form-group.f-group, & .form-group.f-repeater  {
         border: 1px solid #d3cbd7;
+        margin: 5px;
+    }
+    & .form-group.f-repeater .row {
+        border: 1px solid #d3cbd7;
+        margin: 5px;
+    }
+    & .fields {
+        
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -201,9 +227,20 @@ const getByPath = sPath => {
         margin-bottom: 5px;
         border-radius: 5px;
     }
+    // & > .fields {
+    //     border: 1px solid red;
+    // }
+    // & > .fields .f-group, & > .fields .f-repeater  {
+    //     border: none;
+    // }
+
+
     & .buttons {
         display: flex;
         padding: 10px;
+        & .button {
+            margin-right: 10px;
+        }
     }
     & .progress {
         padding-left: 10px;
@@ -213,5 +250,19 @@ const getByPath = sPath => {
         padding: 10px;
         font-weight: bold;
     }
+
+    &.inline {
+        display: flex;
+        align-items: baseline;
+        & .form-title {
+            font-size: 1.2em;
+            padding-right: 10px;
+            margin: 0;
+        }
+        & .fields {
+            border: none;
+        }
+    }
+
 }
 </style>
