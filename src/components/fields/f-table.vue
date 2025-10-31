@@ -20,12 +20,25 @@
         return t
     })    
 
+    const rerenderMCE = () => {
+        setTimeout(() => {
+            window.tinyMCE.editors.forEach(e => {
+                try {
+                    e.render()  
+                } catch {}
+            }), 100
+        })
+
+    }
+
+
     const del = (ev,i) => {
         ev.preventDefault()
         emitter.emit('row-delete', {
             id: props.parentId + '--' + props.field.name,
             idx: i
         })
+        rerenderMCE();
     } 
     
     const add = (ev) => {
@@ -41,6 +54,7 @@
         let new_idx = direction + idx;
         if (typeof props.data[new_idx] != 'undefined') {
             props.data.splice(Math.min(idx, new_idx), 2, props.data[Math.max(new_idx, idx)], props.data[Math.min(new_idx, idx)]);
+            rerenderMCE();
         }
     }
 

@@ -1,8 +1,8 @@
-// import { demoForms } from "./demo";
-// if (!window.formA) {
-//     window.formA = demoForms
-// }
-const  formA = window.formA; 
+import { demoForms } from "./demo";
+if (!window.formA) {
+    window.formA = demoForms
+}
+// const  formA = window.formA; 
 
 // ---
 

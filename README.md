@@ -71,7 +71,7 @@ In this case form definition will load from backend
 ```
 
 ### Form Definition
- please refer to [remote.js](./src/remote.js)  for full example
+ please refer to [demo.js](./src/demo.js)  for full example
 ```
 forms: {
         'local-form-1': {     // placeholder id 
