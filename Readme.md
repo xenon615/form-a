@@ -1,11 +1,11 @@
 ## About  
 This plugin is designed to simplify the task of creating various forms that can be used in the WordPress admin panel.  
-It is based on [form-a](https://github.com/xenon615/form-a) so for the details of the form definition please refer there.  
+
+#### It is based on [form-a](https://github.com/xenon615/form-a) so for the details of the form definition please refer there.  
 
 ## Usage 
 Let's say we want to create a form called "my-cool-settings"
 
-First of all, we need to declare this
 First, let's prepare a place for it.
 
 ```html
@@ -27,9 +27,6 @@ add_filter('form-a_need-a-form', function($forms) {
     if ($screen->id == 'my-cool-settings-page') {
         $forms = [
             'my-cool-settings' => ['remoteLoad' => true],  
-            //  which means that the form definition will be requested separately, 
-            // instead of being specified directly here
-            // refer to [form-a](https://github.com/xenon615/form-a) for more information 
         ];
     }
     return $forms;
