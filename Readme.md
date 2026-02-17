@@ -71,7 +71,7 @@ add_filter('form-a_form_load', function($form, $formSlug) {
 
 ```
 
-And finally, processing the form submission
+And finally, processing the form submission (for forms submitted by AJAX)
 
 ```php
 
