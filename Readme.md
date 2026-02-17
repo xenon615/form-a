@@ -5,7 +5,7 @@ This plugin is designed to simplify the task of creating various forms that can 
 
 ## Installation
 
-Place folder "form-a" in  "plugins" folder.  Then activate it .
+Place folder "form-a" in  "plugins" folder.  Then activate it.  
 To use this plugin as a as "Must Use plugin", place it in the "mu-plugins" folder and create a form-a.php file next to it with the content.
 ```php
 <?php
@@ -14,9 +14,8 @@ require WPMU_PLUGIN_DIR . '/form-a/index.php';
 ```
 
 
-
 ## Usage 
-Let's say we want to create a form called "my-cool-settings"
+Let's say we want to create a form called "my-cool-settings".
 
 First, let's prepare a place for it.
 
@@ -25,7 +24,7 @@ First, let's prepare a place for it.
     function get_page() {
         //wp_enqueue_media();  
         //wp_enqueue_editor();
-        // uncomment above when your form useв wysiwyg field ()
+        // uncomment lines above when your form useв wysiwyg field ()
         echo 
         '<div>
             <form method="POST">
@@ -53,7 +52,7 @@ add_filter('form-a_need-a-form', function($forms) {
 ```
 
 Next, if you chose to remotely (separately) get the form definition (personally, I always do this), we need to give the form definition on request.  
-For example.  
+For example:  
 
 ```php
 
