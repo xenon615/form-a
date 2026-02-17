@@ -8,13 +8,19 @@ Let's say we want to create a form called "my-cool-settings"
 
 First, let's prepare a place for it.
 
-```html
 
-    <div>
-        <form method="POST">
-            <div id="my-cool-settings" class="form-a-placeholder"></div>
-        </form>
-    </div>
+```php
+    function get_page() {
+        //wp_enqueue_media();  
+        //wp_enqueue_editor();
+        // uncomment above when your form useв wysiwyg field ()
+        echo 
+        '<div>
+            <form method="POST">
+                <div id="my-cool-settings" class="form-a-placeholder"></div>
+            </form>
+        </div>';
+    }
 
 ```
 
@@ -70,6 +76,8 @@ add_filter('form-a_form_load', function($form, $formSlug) {
 
 
 ```
+
+
 
 And finally, processing the form submission (for forms submitted by AJAX)
 
